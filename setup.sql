@@ -1,0 +1,18 @@
+CREATE DATABASE IF NOT EXISTS recipe_db;
+
+USE recipe_db;
+
+CREATE TABLE IF NOT EXISTS recipes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    prep_time INT NOT NULL,
+    difficulty TINYINT NOT NULL CHECK (difficulty BETWEEN 1 AND 3),
+    vegetarian BOOLEAN NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ratings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    recipe_id INT,
+    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
+);
